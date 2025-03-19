@@ -22,28 +22,16 @@ body {
 }
 
 .site-header {
-    background-color: grey; /* Sets the grey color for the header */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Adjust padding as needed */
-    text-align: left; /* Aligns text to the left */
-    width: 100%; /* Ensures it spans the full width */
-    position: fixed; /* Makes the header stick to the top of the page */
-    top: 0;
-    left: 0;
-    z-index: 1000; /* Ensures it's always on top */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: adds a subtle shadow */
+
+    background-color: #007BFF; /* Bootstrap blue color */
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
 }
 
-.logout-link {
-    float: right; /* Positions the logout button on the right */
-    color: white; /* Ensures the text is readable */
-    text-decoration: none; /* Removes underline */
-    margin-top: 5px;
-}
-
-    .logout-link:hover {
-        text-decoration: underline; /* Adds hover effect for better UX */
-    }
 
 body {
     margin: 0;
@@ -52,10 +40,6 @@ body {
 @media (max-width: 768px) {
     .site-header h1 {
         font-size: 16px;
-    }
-
-    .logout-link {
-        font-size: 14px;
     }
 }
 @model DashboardViewModel
@@ -110,4 +94,115 @@ body {
         border-radius: 5px;
         text-decoration: none;
     }
-</style>
+</style >
+/* Style for Logout Button */
+.logout-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+
+}
+/* Centering and spacing */
+.video-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Video banner container to center and control width */
+.video-banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Video banner styling */
+.video-banner {
+    width: 100%; /* Makes it responsive */
+    max-height: 90px; /* Adjust the height to make it not too big */
+    object-fit: cover; /* Ensures the video fits nicely */
+    border-bottom: 5px solid #007BFF; /* Adds a blue border under the video */
+}
+
+
+body {
+    background: linear-gradient(180deg, #007BFF, #E3F2FD);
+}
+/* Center the login form */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh; /* Adjust vertical position */
+    text-align: center;
+}
+
+/* Style the login box */
+.login-box {
+    width: 350px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+    /* Input field styling */
+    .login-box label {
+        font-weight: bold;
+        display: block;
+        margin: 8px 0 5px;
+    }
+
+    .login-box input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Button Styling */
+    .login-box button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF; /* Matches the blue header */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+
+    /* Register link styling */
+    .login-box p {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .login-box a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }

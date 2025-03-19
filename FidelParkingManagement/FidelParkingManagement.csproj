@@ -6,8 +6,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="C:\Users\HP\Desktop\MyWallet.cshtml" Link="Views\MyWallet.cshtml" />
-  </ItemGroup>
-
 </Project>

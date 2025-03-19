@@ -9,38 +9,51 @@
     <link rel="stylesheet" href="~/FidelParkingManagement.styles.css" asp-append-version="true" />
 </head>
 <body>
+
+
     <!-- 🔹 Global Header -->
     <header class="site-header">
         <h1>Fidel Parking Management System</h1>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a href="@Url.Action("Logout", "Account")" class="logout-link">Log out</a>
-        }
+
+            @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in
+            {
+                <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>
+            }
+        </div>
     </header>
 
+    <!-- Video Banner -->
+    <div class="video-banner-container">
+        <video autoplay loop muted playsinline class="video-banner">
+            <source src="~/videos/banner-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
     <div class="container-fluid d-flex">
         <!-- ✅ Sidebar (Only for Logged-in Users) -->
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            <div class="sidebar">
-                <ul>
-                    <li><a asp-controller="Dashboard" asp-action="Index">🏠 Dashboard</a></li>
-                    <li><a asp-controller="Wallet" asp-action="Index">💰 My Wallet</a></li>
-                    <li><a asp-controller="Car" asp-action="Index">🚗 My Car</a></li>
-                    <li><a asp-controller="Payment" asp-action="Index">💳 Pay Online</a></li>
-                    <li><a asp-controller="Parking" asp-action="FindSpot">🅿️ Find A Spot</a></li>
-                    <li><a asp-controller="Parking" asp-action="Reserve">📅 Reserve Parking</a></li>
-                    <li><a asp-controller="Issue" asp-action="Report">⚠️ Report Issue</a></li>
-                </ul>
-            </div>
+                <!-- Sidebar Navigation -->
+                <div class="sidebar">
+                    <ul>
+
+                        <li><a href="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
+                        <li><a href="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
+                        <li><a href="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
+                        <li><a href="@Url.Action("ReserveParking", "Dashboard")">📅 Reserve Parking</a></li>
+                        <li><a href="@Url.Action("ReportIssue", "Dashboard")">⚠️ Report Issue</a></li>
+                    </ul>
+                </div>
+            
         }
+
 
         <!-- ✅ Main Content Area -->
         <main role="main" class="main-content">
             @RenderBody()
         </main>
     </div>
-
+   
     <!-- 🔹 Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">
