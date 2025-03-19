@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FidelParkingManagement</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FidelParkingManagement.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- 🔹 Global Header -->
+    <header class="site-header">
+        <h1>Fidel Parking Management System</h1>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Logout", "Account")" class="logout-link">Log out</a>
+        }
+    </header>
+
+    <div class="container-fluid d-flex">
+        <!-- ✅ Sidebar (Only for Logged-in Users) -->
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div class="sidebar">
+                <ul>
+                    <li><a asp-controller="Dashboard" asp-action="Index">🏠 Dashboard</a></li>
+                    <li><a asp-controller="Wallet" asp-action="Index">💰 My Wallet</a></li>
+                    <li><a asp-controller="Car" asp-action="Index">🚗 My Car</a></li>
+                    <li><a asp-controller="Payment" asp-action="Index">💳 Pay Online</a></li>
+                    <li><a asp-controller="Parking" asp-action="FindSpot">🅿️ Find A Spot</a></li>
+                    <li><a asp-controller="Parking" asp-action="Reserve">📅 Reserve Parking</a></li>
+                    <li><a asp-controller="Issue" asp-action="Report">⚠️ Report Issue</a></li>
+                </ul>
+            </div>
+        }
+
+        <!-- ✅ Main Content Area -->
+        <main role="main" class="main-content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- 🔹 Footer -->
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - FidelParkingManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- 🔹 Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
