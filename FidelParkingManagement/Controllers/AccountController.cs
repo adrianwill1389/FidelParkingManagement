@@ -19,7 +19,7 @@ public class AccountController : Controller
     {
         if (username == "admin" && password == "1234") //HardCore for now until database added
         {
-            return RedirectToAction("MyWallet", "Dashboard"); 
+            return RedirectToAction("Index", "Dashboard"); 
         }
         ViewBag.Error = "Invalid Username or Password";
         return View();
