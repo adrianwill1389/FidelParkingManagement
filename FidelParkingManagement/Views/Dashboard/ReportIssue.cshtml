@@ -1,13 +1,30 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿
 <h2>⚠️ Report an Issue</h2>
 <p>Describe the issue you are facing.</p>
 
-<form>
+<form id="report-form">
     <label for="issue">Issue Details:</label><br>
-    <textarea id="issue" name="issue" rows="4" cols="50"></textarea><br><br>
+    <textarea id="issue" name="issue" rows="4" cols="50" required></textarea><br><br>
 
     <button type="submit">Submit Report</button>
 </form>
+
+<div id="thank-you-message" style="display:none; margin-top: 20px;">
+    ✅ <strong>Thank you!</strong> Your issue has been submitted successfully.
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#report-form").submit(function (e) {
+                e.preventDefault();
+
+                // You could also add an AJAX call here to save the data to the server
+
+                // Hide form and show thank-you message
+                $("#report-form").hide();
+                $("#thank-you-message").fadeIn();
+            });
+        });
+    </script>
+}
