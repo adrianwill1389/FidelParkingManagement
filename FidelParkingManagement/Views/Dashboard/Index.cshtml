@@ -56,6 +56,7 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <ul>
+            <li><a href="#" class="menu-link" data-url="@Url.Action("LoadSummary", "Dashboard")">🏠 Dashboard</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
@@ -67,9 +68,9 @@
 
     <!-- Main content area where pages load dynamically -->
     <div id="dashboard-content" style="padding-left: 52px;">
-        <h2>Welcome to Your Dashboard</h2>
-        <p>Select an option from the sidebar to get started.</p>
+        @await Html.PartialAsync("_UserSummary", Model)
     </div>
+
 
 
 </div>

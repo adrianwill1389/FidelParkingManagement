@@ -5,8 +5,26 @@ public class DashboardController : Controller
 {
     public IActionResult Index()
     {
-     
-        return View(); // ✅ This loads Index.cshtml as a full page
+        var model = new DashboardViewModel
+        {
+            Name = "Jane Dunkley",
+            Membership = "Silver",
+            WalletAmount = 12500.00
+        };
+
+        return View(model);
+    }
+
+    public IActionResult LoadSummary()
+    {
+        var model = new DashboardViewModel
+        {
+            Name = "Jane Dunkley",
+            Membership = "Silver",
+            WalletAmount = 12500.00
+        };
+
+        return PartialView("_UserSummary", model);
     }
 
     public IActionResult MyCar()
@@ -39,6 +57,8 @@ public class DashboardController : Controller
 // ✅ Make sure DashboardViewModel only contains needed properties
 public class DashboardViewModel
 {
-    public decimal WalletAmount { get; set; }
-    public string MembershipStatus { get; set; }
+    public string Name { get; set; }
+    public string Membership { get; set; }
+    public double WalletAmount { get; set; }
 }
+

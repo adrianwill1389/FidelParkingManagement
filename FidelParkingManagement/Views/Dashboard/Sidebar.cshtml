@@ -4,7 +4,10 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <ul>
-            
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            </li>
+
             <li><a href="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
             <li><a href="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
             <li><a href="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>

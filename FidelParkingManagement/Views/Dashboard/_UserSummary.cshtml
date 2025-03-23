@@ -1,0 +1,16 @@
+﻿@model DashboardViewModel
+
+<div class="text-center mt-5">
+    <img src="~/images/profile.jpg" alt="Profile" class="rounded-circle mb-4" style="width: 220px; height: 220px;" />
+
+    <h2 class="fw-bold">@Model.Name</h2>
+    <p class="mb-4">Membership: @Model.Membership</p>
+
+    <div class="bg-primary text-white fw-bold rounded px-4 py-2 d-inline-block mb-4" style="font-size: 1.1rem;">
+        Wallet Amount : JM $@Model.WalletAmount.ToString("N2")
+    </div>
+
+    <div>
+        <a href="#" class="top-up-btn">Topup Wallet</a>
+    </div>
+</div>
