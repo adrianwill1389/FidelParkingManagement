@@ -2,25 +2,29 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<div class="register-container">
+    <h2>Register</h2>
 
-@if (ViewBag.Error != null)
-{
-    <p style="color:red">@ViewBag.Error</p>
-}
+    <form asp-action="Register" method="post" class="register-form">
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" name="Username" class="form-control" />
+        </div>
 
-<form method="post">
-    <label>Username:</label>
-    <input type="text" name="username" required />
-    <br />
-    <label>Password:</label>
-    <input type="password" name="password" required />
-    <br />
-    <label>Confirm Password:</label>
-    <input type="password" name="confirmPassword" required />
-    <br />
-    <button type="submit">Register</button>
-</form>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="Password" class="form-control" />
+        </div>
 
-<p>Already have an account? <a href="@Url.Action("Login", "Account")">Login here</a></p>
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" name="ConfirmPassword" class="form-control" />
+        </div>
 
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+    <p class="mt-3">
+        Already have an account? <a asp-controller="Account" asp-action="Login">Login here</a>
+    </p>
+</div>
