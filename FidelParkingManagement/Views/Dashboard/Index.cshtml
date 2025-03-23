@@ -56,12 +56,12 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <ul>
-
             <li><a href="#" class="menu-link" data-url="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("ReserveParking", "Dashboard")">📅 Reserve Parking</a></li>
             <li><a href="#" class="menu-link" data-url="@Url.Action("ReportIssue", "Dashboard")">⚠️ Report Issue</a></li>
+
         </ul>
     </div>
 
@@ -75,7 +75,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+ <script>
     $(document).ready(function () {
         $(".menu-link").click(function (e) {
             e.preventDefault();  // Prevent full page reload
@@ -86,4 +86,4 @@
             $("#dashboard-content").load(url);
         });
     });
-</script>
+</script> 

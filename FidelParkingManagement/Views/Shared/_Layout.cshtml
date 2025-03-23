@@ -35,18 +35,17 @@
         {
                 <!-- Sidebar Navigation -->
                 <div class="sidebar">
-                    <ul>
+                <ul>
+                    <li><a href="#" class="menu-link" data-url="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
+                    <li><a href="#" class="menu-link" data-url="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
+                    <li><a href="#" class="menu-link" data-url="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
+                    <li><a href="#" class="menu-link" data-url="@Url.Action("ReserveParking", "Dashboard")">📅 Reserve Parking</a></li>
+                    <li><a href="#" class="menu-link" data-url="@Url.Action("ReportIssue", "Dashboard")">⚠️ Report Issue</a></li>
 
-                        <li><a href="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
-                        <li><a href="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
-                        <li><a href="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
-                        <li><a href="@Url.Action("ReserveParking", "Dashboard")">📅 Reserve Parking</a></li>
-                        <li><a href="@Url.Action("ReportIssue", "Dashboard")">⚠️ Report Issue</a></li>
                     </ul>
                 </div>
             
         }
-
 
         <!-- ✅ Main Content Area -->
         <main role="main" class="main-content">
@@ -57,7 +56,7 @@
     <!-- 🔹 Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - FidelParkingManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - FidelParkingManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 
