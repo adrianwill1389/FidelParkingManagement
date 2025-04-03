@@ -10,26 +10,25 @@
 </head>
 <body>
 
+    <!-- 🔹 Global Header 
+     <header class="site-header"> 
+          <h1>Fidel Parking Management System</h1>
 
-    <!-- 🔹 Global Header -->
-    <header class="site-header">
-        <h1>Fidel Parking Management System</h1>
+            @* @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in *@ 
+            @*  {  *@
+            @*     <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>  *@
+            @* }  *@
+         </div>
+    </header> -->
 
-            @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in
-            {
-                <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>
-            }
-        </div>
-    </header>
-
-    <!-- Video Banner -->
-    <div class="video-banner-container">
-        <video autoplay loop muted playsinline class="video-banner">
-            <source src="~/videos/banner-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="container-fluid d-flex">
+    @* <!-- Video Banner --> *@
+    @* <div class="video-banner-container"> *@
+    @*     <video autoplay loop muted playsinline class="video-banner"> *@
+    @*         <source src="~/videos/banner-video.mp4" type="video/mp4"> *@
+    @*         Your browser does not support the video tag. *@
+    @*     </video> *@
+    @* </div> *@
+    <div class="container">
         <!-- ✅ Sidebar (Only for Logged-in Users) -->
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {

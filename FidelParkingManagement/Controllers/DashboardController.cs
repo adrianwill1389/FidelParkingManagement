@@ -6,13 +6,13 @@ public class DashboardController : Controller
     public IActionResult Index()
     {
         // Sample data - replace with actual data from database
-        var dashboardData = new DashboardViewModel
-        {
-            WalletAmount = 12500.00M, // Fetch from DB
-            MembershipStatus = "Silver" // Fetch from DB
-        };
+        //var dashboardData = new DashboardViewModel
+        //{
+        //    WalletAmount = 12500.00M, // Fetch from DB
+        //    MembershipStatus = "Silver" // Fetch from DB
+        //};
 
-        return View(dashboardData); // ✅ This loads Index.cshtml as a full page
+        return View(); // ✅ This loads Index.cshtml as a full page
     }
 
     public IActionResult MyCar()

@@ -3,6 +3,10 @@
 }
 
 <div class="login-container">
+
+    <div class="logoImg">
+        <img src="~/Images/logo.png" alt="Company Logo"/>
+    </div>
     <div class="login-box">
         <h2>Login</h2>
 
@@ -17,10 +21,9 @@
         {
             <p style="color:red">@ViewBag.Error</p>
         }
-
         <form method="post">
-            <label>Username:</label>
-            <input type="text" name="username" required />
+            <label>License Plate Number:</label>
+            <input type="text" name="lPlate" required />
 
             <label>Password:</label>
             <input type="password" name="password" required />
@@ -28,6 +31,6 @@
             <button type="submit">Login</button>
         </form>
 
-        <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p>
+        @* <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p> *@
     </div>
 </div>

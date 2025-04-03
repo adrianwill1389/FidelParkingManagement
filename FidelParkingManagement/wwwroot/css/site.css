@@ -18,25 +18,23 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url('../Images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-.site-header {
+/*.site-header {
 
-    background-color: #007BFF; /* Bootstrap blue color */
-    color: white;
+    background-color: #007BFF;*/ /* Bootstrap blue color */
+    /*color: white;
     padding: 15px 20px;
     text-align: left;
     font-size: 24px;
     font-weight: bold;
     position: relative;
-}
-
-
-body {
-    margin: 0;
-    padding-top: 50px; /* Space for header to avoid overlap with content */
-}
+}*/
+   
 @media (max-width: 768px) {
     .site-header h1 {
         font-size: 16px;
@@ -113,94 +111,112 @@ body {
     background-color: darkred;
 
 }
+
+.logoImg {
+    width: 100px;
+    height: 100px;
+    margin-left: 50px;
+}
 /* Centering and spacing */
-.video-container {
+/*.video-container {
     text-align: center;
     margin: 20px 0;
 }
-
+*/
 /* Video banner container to center and control width */
-.video-banner-container {
+/*.video-banner-container {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 10px;
-}
-
+}*/
 /* Video banner styling */
-.video-banner {
-    width: 100%; /* Makes it responsive */
-    max-height: 90px; /* Adjust the height to make it not too big */
-    object-fit: cover; /* Ensures the video fits nicely */
-    border-bottom: 5px solid #007BFF; /* Adds a blue border under the video */
+/*.video-banner {
+    width: 100%;*/ /* Makes it responsive */
+/*max-height: 90px;*/ /* Adjust the height to make it not too big */
+/*object-fit: cover;*/ /* Ensures the video fits nicely */
+/*border-bottom: 5px solid #007BFF;*/ /* Adds a blue border under the video */
+/*}*/
+.container {
+/*    background-color : aliceblue;
+    opacity: 0.8;*/
 }
-
-
-body {
-    background: linear-gradient(180deg, #007BFF, #E3F2FD);
-}
-/* Center the login form */
+/* Login Container */
 .login-container {
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 60vh; /* Adjust vertical position */
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px;
     text-align: center;
 }
 
-/* Style the login box */
-.login-box {
-    width: 350px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
+
+/* Logo Image */
+.logoImg {
+   width: auto; 
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-    /* Input field styling */
+    .logoImg img {
+        /* background-color: orangered;*/
+        margin-right: 40px;
+        width: 400px; /* Adjust logo size */
+        height: auto;
+        align-content: center;
+    }
+
+/* Login Box */
+.login-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+    .login-box h2 {
+        margin-bottom: 20px;
+    }
+
     .login-box label {
-        font-weight: bold;
         display: block;
-        margin: 8px 0 5px;
+        margin-bottom: 5px;
+        text-align: left;
     }
 
     .login-box input {
         width: 100%;
         padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
     }
 
-    /* Button Styling */
     .login-box button {
         width: 100%;
         padding: 10px;
-        background-color: #007BFF; /* Matches the blue header */
+        background: #007bff;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 4px;
         cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
     }
 
         .login-box button:hover {
-            background-color: #0056b3;
+            background: #0056b3;
         }
 
-    /* Register link styling */
-    .login-box p {
-        text-align: center;
-        margin-top: 10px;
-    }
-
     .login-box a {
-        color: #007BFF;
+        color: #007bff;
         text-decoration: none;
-        font-weight: bold;
     }
 
         .login-box a:hover {
