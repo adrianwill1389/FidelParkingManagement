@@ -1,58 +1,142 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<h2>🚗 My Car</h2>
-<p>Manage your vehicle details here.</p>
+﻿@model VehiclesDetected
 
-<div style="display: flex; gap: 20px;">
-    <!-- Car Image & Live Stream -->
-    <div>
-        <img src="/images/car.jpg" alt="Your Car" width="400" height="250">
-        <div style="color: red; font-size: 20px; font-weight: bold;">
-            🔴 LIVE STREAM
+
+<!--Load Elapsed Time Car Spent in Lot-->
+<script>
+    const date = "@Model.EntryDate.ToString("yyyy-MM-dd")";
+    const time = "@Model.EntryTime.ToString("HH:mm:ss")";  
+    console.log("Date: " + date);
+    const startDateTime = new Date(`${date}T${time}`);
+    function pad(num) {
+          return num.toString().padStart(2, '0');
+      }
+
+      function updateTimer() {
+          const now = new Date();
+          let diff = Math.floor((now - startDateTime) / 1000);
+
+          if (diff < 0) {
+              document.getElementById("elapsedTimer").innerText = "Start time is in the future.";
+              return;
+          }
+
+          const hours = Math.floor(diff / 3600);
+          diff %= 3600;
+          const minutes = Math.floor(diff / 60);
+          const seconds = diff % 60;
+
+          document.getElementById("elapsedTimer").innerText =
+              `${pad(hours)}h : ${pad(minutes)}m : ${pad(seconds)}s`;
+      }
+
+      window.onload = function () {
+          updateTimer();
+          setInterval(updateTimer, 1000);
+      };
+</script>
+
+@if (Model.Operation == "Entry"){
+
+    <h2 >🚗 My Car</h2>
+    <br />
+
+   
+
+    <div class="scale-box bg-secondary p-1 mb-2 rounded-3 align-self-center" style="width: 82%">
+        <div class="text-center fs-1 fw-bold text-warning"><span id="elapsedTimer">00:00:00</span></div>
+    </div>
+    <div style="display: flex; gap: 20px;">
+      
+        <div>
+            <img src="@Model.Media!.Url" width="400" height="400">
+            <div style="color: darkseagreen; font-size: 20px; font-weight: bold; padding-top:10px">
+                📸 Entry Snapshot
+            </div>
         </div>
+
+
+        <!-- Car Details -->
+        <div>
+            <div style="background: red; color: white; padding: 10px; font-size: 18px; font-weight: bold; width: 170%;">
+                LOT 34
+            </div>
+            <table class="table table-striped" style="width: 170%;">
+                <tr><td><strong>Operation:</strong></td><td >Parked</td></tr>
+                <tr><td><strong>Ticket #:</strong></td><td>@Model.TicketNumber</td></tr>
+                <tr><td><strong>License Plate #:</strong></td><td>@Model.LicensePlateNumber</td></tr>
+                <tr><td><strong>Vehicle Make:</strong></td><td>@Model.Make</td></tr>
+                <tr><td><strong>Vehicle Model:</strong></td><td>@Model.Model</td></tr>
+                <tr><td><strong>Vehicle Color:</strong></td><td>@Model.Color</td></tr>
+                <tr><td><strong>Entry Date:</strong></td><td>@Model.EntryDate.ToString("dd/MM/yyyy")</td></tr>
+                <tr><td><strong>Exit Time:</strong></td><td>@Model.EntryTime.ToString("HH:mm:ss")</td></tr>
+                <tr><td><strong>Elapsed Time:</strong></td><td>2h:34m:368</td></tr>
+            </table>
+            <br>
+            
+        </div>
+
     </div>
 
-    <!-- Car Details -->
-    <div>
-        <div style="background: red; color: white; padding: 10px; font-size: 18px; font-weight: bold;">
-            LOT 34
-        </div>
-        <table border="1" width="100%" style="border-collapse: collapse;">
-            <tr><td><strong>Operation:</strong></td><td style="color: purple;">Vehicle Parked</td></tr>
-            <tr><td><strong>Ticket #:</strong></td><td>47447438</td></tr>
-            <tr><td><strong>License Plate #:</strong></td><td style="color: blue;">4321 GH</td></tr>
-            <tr><td><strong>Vehicle Make:</strong></td><td>Toyota</td></tr>
-            <tr><td><strong>Vehicle Model:</strong></td><td>Camry</td></tr>
-            <tr><td><strong>Vehicle Color:</strong></td><td style="color: blue;">Silver</td></tr>
-            <tr><td><strong>Entry Time:</strong></td><td>12:30 PM</td></tr>
-            <tr><td><strong>Exit Time:</strong></td><td>N/A</td></tr>
-            <tr><td><strong>Elapsed Time:</strong></td><td>2h:34m:368</td></tr>
-        </table>
-        <br>
-        <button style="background: green; color: white; padding: 10px; font-size: 16px; border: none; cursor: pointer;">
+   
+
+    <div class="myCarButton">
+        <a href="@Url.Action("LiveView", "Dashboard", new{data = "RAV4"})"
+           class="menu-link btn btn-outline-danger">
             📍 Locate My Car
-        </button>
+        </a>
+        <a href="@Url.Action("LiveView", "Dashboard", new{data = "RAV4"})"
+           class="menu-link btn btn-outline-danger">
+            🔴 View Live Stream
+            </a>            
     </div>
-</div>
 
-<hr>
+    <hr>
 
-<!-- Car List Management -->
-<h3>Your Registered Cars</h3>
-<table border="1" width="100%" style="border-collapse: collapse;">
-    <tr>
-        <th>Car Model</th>
-        <th>License Plate</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>Toyota Corolla</td>
-        <td>7611GK</td>
-        <td>
-            <button>Edit</button>
-            <button>Delete</button>
-        </td>
-    </tr>
-</table>
-<button>Add New Car</button>
+
+}
+else{
+    <b/>
+    <b/>
+    <div class="noCarAvailable">
+        <img style="align-content:center" src="https://jarentals.net/wp-content/cars/noCar2.png" width="400" height="400">
+        <h6 style="align-items: center">You currently dont have any cars in the Parking Lot</h6>
+    </div>
+
+    <!-- Car List Management -->
+    <div class="parkingHistory ">
+        <h4>YOUR PARKING HISTORY:</h4>
+        <table class="table table-striped" border="1" width="100%" style="border-collapse: collapse;">
+            <tr>
+                <th>Car Model</th>
+                <th>License Plate</th>
+                <th>Date Out</th>
+                @{
+                if (Model.Payment != null)
+                {
+                <th>Paid</th>
+                }}
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>@Model.Make @Model.Model</td>
+                <td>@Model.LicensePlateNumber</td>
+                <td>@Model.ExitDate</td>
+                @{
+                    if(Model.Payment != null)
+                    {
+                        var paid = (decimal) Model.Payment.Paid!;
+                        string fPaid = paid.ToString("C");
+                <td>@fPaid</td>
+                }}
+            <td>Exited</td>
+        </tr>
+    </table>
+    </div>
+  
+        }
+
+
+
+    
+   
+

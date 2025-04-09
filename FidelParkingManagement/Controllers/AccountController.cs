@@ -1,11 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using FidelParkingManagement.Models;
+using System;
 
 public class AccountController : Controller
 {
+
+    private readonly FidelParkingDbContext _context;
+
+    public AccountController(FidelParkingDbContext context)
+    {
+        _context = context;
+    }
     public IActionResult Login()
     {
+        try
+        {
+            TempData.Remove("username");
+            Console.WriteLine("TempData User Deleted");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error Deleting TempData" + ex.Message);
+
+        }
         return View();
     }
 
@@ -15,10 +36,19 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Login(string username, string password)
+    public async Task<IActionResult> LoginAsync(string username, string password)
     {
-        if (username == "admin" && password == "1234") //HardCore for now until database added
+        
+        if (username == "8854TW" && password == "1234") //HardCode for now until database added
         {
+            TempData["username"] = username;
+
+            //if user logs in successfully, load the vehicle data for the user
+            //var vehicle = await _context.VehiclesDetecteds
+          
+            //    .FirstOrDefaultAsync(v => v.LicensePlateNumber == username);
+             
+            //TempData["Vehicle"] = JsonSerializer.Serialize(vehicle);
             return RedirectToAction("Index", "Dashboard"); 
         }
         ViewBag.Error = "Invalid Username or Password";

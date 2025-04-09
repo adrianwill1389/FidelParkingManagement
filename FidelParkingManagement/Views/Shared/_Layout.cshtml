@@ -9,16 +9,15 @@
     <link rel="stylesheet" href="~/FidelParkingManagement.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- 🔹 Global Header
+    <header class="site-header">
+    <h1>Fidel Parking Management System</h1>
 
-    <!-- 🔹 Global Header 
-     <header class="site-header"> 
-          <h1>Fidel Parking Management System</h1>
-
-            @* @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in *@ 
-            @*  {  *@
-            @*     <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>  *@
-            @* }  *@
-         </div>
+    @* @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in *@ 
+    @*  {  *@
+    @*     <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>  *@
+    @* }  *@
+    </div>
     </header> -->
 
     @* <!-- Video Banner --> *@
@@ -28,31 +27,73 @@
     @*         Your browser does not support the video tag. *@
     @*     </video> *@
     @* </div> *@
-    <div class="container">
-        <!-- ✅ Sidebar (Only for Logged-in Users) -->
-        @if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-                <!-- Sidebar Navigation -->
-                <div class="sidebar">
-                    <ul>
 
-                        <li><a href="@Url.Action("MyCar", "Dashboard")">🚗 My Car</a></li>
-                        <li><a href="@Url.Action("PayOnline", "Dashboard")">💳 Pay Online</a></li>
-                        <li><a href="@Url.Action("FindASpot", "Dashboard")">🅿️ Find A Spot</a></li>
-                        <li><a href="@Url.Action("ReserveParking", "Dashboard")">📅 Reserve Parking</a></li>
-                        <li><a href="@Url.Action("ReportIssue", "Dashboard")">⚠️ Report Issue</a></li>
+    
+    <div class="container">
+       
+        <!--Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid"> 
+                <a class="navbar-brand" href="#">Welcome to Your Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item"><a class="nav-link " href="Account/Login">👤 Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"></a></li>
                     </ul>
                 </div>
+            </div>
+        </nav>
+        <div class="row h-100" style="height:100%;">
             
-        }
+            <!-- Sidebar Navigation -->
+            @{
+                    try
+                    {
+                        if (TempData["username"]!.Equals("8854TW"))
+                        {
+                        TempData.Keep("username");
+                        
+                        <div class="sidebar">
+                           
+                            <ul class="nav flex-column h-100" style="text-decoration: none;">
+                                <li><a href="Index" class="nav-item">👤 Dashboard</a></li>
+                                <hr/>
+                            <li><a href="@Url.Action("MyCar", "Dashboard")" class="nav-item nav-link">🚗 My Car</a></li>
+                            <li><a href="@Url.Action("PayOnline", "Dashboard")" class="nav-item nav-link">💳 Pay Online</a></li>
+                            <li><a href="@Url.Action("FindASpot", "Dashboard")" class="nav-item nav-link">🅿️ Find A Spot</a></li>
+                            <li><a href="@Url.Action("ReserveParking", "Dashboard")" class="nav-item nav-link">📅 Reserve Parking</a></li>
+                            <li><a href="@Url.Action("ReportIssue", "Dashboard")" class="nav-item nav-link">⚠️ Report Issue</a></li>
+                            </ul>
+                        </div>
+                }
+                    }
+                    catch (Exception ex)
+                    {
+                        <script>
+                            console.log("Error: " + ex.message);
+                        </script>
+                    }
+              
+               
+            }
 
+            <!-- Main content area where pages load dynamically -->
+            <div class="main-content">
+                <main role="main" class="main-content">
+                    @RenderBody()
+                </main>
+            </div>
+            </div>
+        </div>
 
         <!-- ✅ Main Content Area -->
-        <main role="main" class="main-content">
-            @RenderBody()
-        </main>
+
     </div>
-   
+
     <!-- 🔹 Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">

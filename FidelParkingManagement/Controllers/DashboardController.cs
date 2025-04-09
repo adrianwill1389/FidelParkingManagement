@@ -1,23 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FidelParkingManagement.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Text.Json;
 
 public class DashboardController : Controller
 {
+    private readonly FidelParkingDbContext _context; 
+
+    public DashboardController(FidelParkingDbContext context)
+    {
+        _context = context;
+    }
     public IActionResult Index()
     {
         // Sample data - replace with actual data from database
-        //var dashboardData = new DashboardViewModel
-        //{
-        //    WalletAmount = 12500.00M, // Fetch from DB
-        //    MembershipStatus = "Silver" // Fetch from DB
-        //};
+        var dashboardData = new DashboardViewModel
+        {
+            WalletAmount = 12500.00M, // Fetch from DB
+            MembershipStatus = "Silver" // Fetch from DB
+        };
 
         return View(); // ✅ This loads Index.cshtml as a full page
     }
 
-    public IActionResult MyCar()
+
+    public async Task<IActionResult> MyCar()
     {
-        return View(); // ✅ Load the full MyCar.cshtml page
+        var userName = TempData["username"];
+        if (userName != null)
+        {
+            // Keep the TempData for the next request
+            TempData.Keep("username"); 
+            //Get vehicle data for the specific user license plate
+            var vehicle = await _context.VehiclesDetecteds
+                .Include(v => v.Media)
+                .Include(v => v.Payment)
+            .FirstOrDefaultAsync(v => v.LicensePlateNumber.Equals(userName));
+
+            var img  = vehicle.Media!.Url;
+            return View(vehicle);
+        }
+        
+        return NotFound();
+    }
+
+    public IActionResult LiveView(string data)
+    {
+        var liveFeed = new LiveFeed
+        {
+            url = "https://jarentals.net/wp-content/carLiveVids/" + data + ".mp4",
+            autoPlay = true,
+            loop = true
+        };
+        return View(liveFeed); 
     }
 
     public IActionResult PayOnline()

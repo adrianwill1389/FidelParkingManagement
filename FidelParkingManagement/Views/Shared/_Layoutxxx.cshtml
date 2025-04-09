@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FidelParkingManagement</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FidelParkingManagement.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- 🔹 Global Header 
+     <header class="site-header"> 
+          <h1>Fidel Parking Management System</h1>
+
+            @* @if (User.Identity.IsAuthenticated)  // Show only if the user is logged in *@ 
+            @*  {  *@
+            @*     <button class="logout-btn" onclick="location.href='@Url.Action("Logout", "Account")'">Log Out</button>  *@
+            @* }  *@
+         </div>
+    </header> -->
+
+    @* <!-- Video Banner --> *@
+    @* <div class="video-banner-container"> *@
+    @*     <video autoplay loop muted playsinline class="video-banner"> *@
+    @*         <source src="~/videos/banner-video.mp4" type="video/mp4"> *@
+    @*         Your browser does not support the video tag. *@
+    @*     </video> *@
+    @* </div> *@
+    <div class="container">
+        <!-- ✅ Sidebar (Only for Logged-in Users) -->
+      
+        @* @try{ *@
+        @*     if (TempData["username"].Equals("8854TW")) *@
+        @*     { *@
+        @*         <div class="d-flex"> *@
+        @*             <!-- Sidebar --> *@
+        @*             <div class="bg-light p-3" style="width: 250px; height: 100vh;"> *@
+        @*                 <h5>Menu</h5> *@
+        @*                 <ul class="nav flex-column" style="text-decoration: none"> *@
+        @*                     <li><a href="MyCar" )" class="nav-item nav-link">🚗 My Car</a></li> *@
+        @*                     <li><a href="PayOnline" class="nav-item nav-link">💳 Pay Online</a></li> *@
+        @*                     <li><a href="FindASpot" class="nav-item nav-link">🅿️ Find A Spot</a></li> *@
+        @*                     <li><a href="ReserveParking" class="nav-item nav-link">📅 Reserve Parking</a></li> *@
+        @*                     <li><a href="ReportIssue" class="nav-item nav-link">⚠️ Report Issue</a></li> *@
+        @*                 </ul> *@
+        @*             </div> *@
+        @*             </div> *@
+        @* } *@
+        @* } *@
+        @* catch (Exception ex) *@
+        @* { *@
+       
+        @*     <script> *@
+        @*       console.log("Error: " + ex.message); *@
+        @*     </script> *@
+        @* } *@
+
+
+        <!-- ✅ Main Content Area -->
+        <main role="main" class="main-content">
+            @RenderBody()
+        </main>
+    </div>
+   
+    <!-- 🔹 Footer -->
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - FidelParkingManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- 🔹 Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
