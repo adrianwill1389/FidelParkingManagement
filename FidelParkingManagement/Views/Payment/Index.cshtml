@@ -1,28 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Pay Online";
+    var amount = TempData["Amount"] != null ? Convert.ToDecimal(TempData["Amount"]) : 0;
+    var isPaid = TempData["IsPaid"] != null && (bool)TempData["IsPaid"];
+    TempData.Keep(); // Keep both values across refresh/post
 }
 
-<h2>Pay Online</h2>
+<div class="container my-5">
 
-<form>
-    <label>Payment Methods:</label><br>
-    <input type="radio" name="payment" value="creditcard"> Debit or Credit Card<br>
-    <input type="radio" name="payment" value="paypal"> PayPal<br>
+    @if (amount <= 0)
+    {
+        <div class="text-center p-5 bg-light rounded shadow">
+            <h2>No Payment Available</h2>
+            <p>You currently do not have any outstanding payments.</p>
+        </div>
+    }
+    else if (isPaid)
+    {
+        <div class="text-center p-5 bg-success text-white rounded shadow">
+            <h2>✅ Payment Successful</h2>
+            <p>Thank you! Your payment of <strong>${amount}</strong> has been processed.</p>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+                <h3 class="card-title mb-3">Pay ${amount}</h3>
 
-    <label>First Name:</label>
-    <input type="text"><br>
+                <form method="post" asp-action="PaymentPagePost">
+                    <div class="mb-3">
+                        <label class="form-label">Card Number</label>
+                        <input type="text" class="form-control" value="4111 1111 1111 1111" readonly />
+                    </div>
 
-    <label>Last Name:</label>
-    <input type="text"><br>
+                    <div class="mb-3">
+                        <label class="form-label">Expiry</label>
+                        <input type="text" class="form-control" value="12/25" readonly />
+                    </div>
 
-    <label>Credit Card Number:</label>
-    <input type="password"><br>
+                    <div class="mb-3">
+                        <label class="form-label">CVV</label>
+                        <input type="text" class="form-control" value="123" readonly />
+                    </div>
 
-    <label>Security Code:</label>
-    <input type="text"><br>
-
-    <label>Expiration:</label>
-    <input type="text"><br>
-
-    <button type="submit">Submit Order</button>
-</form>
+                    <button type="submit" class="btn btn-primary w-100">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

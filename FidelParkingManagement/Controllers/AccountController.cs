@@ -24,6 +24,10 @@ public class AccountController : Controller
         {
             TempData.Remove("username");
             TempData.Remove("success");
+            TempData.Remove("Error");
+        
+            TempData.Remove("IsPaid");
+            TempData.Remove("Amount");
             Console.WriteLine("TempData User Deleted");
         }
         catch (Exception ex)
@@ -42,19 +46,6 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> LoginAsync(string username, string password)
     {
-
-        //if (username == "8918 OL" && password == "1234") //HardCode for now until database added
-        //{
-        //    TempData["username"] = username;
-
-        //    //if user logs in successfully, load the vehicle data for the user
-        //    //var vehicle = await _context.VehiclesDetecteds
-
-        //    //    .FirstOrDefaultAsync(v => v.LicensePlateNumber == username);
-
-        //    //TempData["Vehicle"] = JsonSerializer.Serialize(vehicle);
-        //    return RedirectToAction("Index", "Dashboard"); 
-        //}
         try
         {
             SHA256 sha = SHA256.Create();
@@ -85,7 +76,7 @@ public class AccountController : Controller
                 }
                 TempData["username"] = userName;
                 TempData["success"] = "success";
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("MyCar", "Dashboard");
 
             }
             else

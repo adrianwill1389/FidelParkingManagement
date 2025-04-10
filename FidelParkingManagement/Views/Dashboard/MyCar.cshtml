@@ -46,10 +46,12 @@
     <div style="display: flex; gap: 20px;">
       
         <div>
+           
             <img src="@Model.Media!.Url" width="400" height="400">
-            <div style="color: darkseagreen; font-size: 20px; font-weight: bold; padding-top:10px">
-                📸 Entry Snapshot
-            </div>
+            @* <div class="m-2 text-end" style="color: darkseagreen; font-size: 12px; font-weight: bold;  "> *@
+            @*     📸 Entry Snapshot *@
+            @* </div> *@
+           
         </div>
 
 
@@ -78,14 +80,15 @@
    
 
     <div class="myCarButton">
-        <a href="@Url.Action("LiveView", "Dashboard", new{data = "RAV4"})"
-           class="menu-link btn btn-outline-danger">
-            📍 Locate My Car
-        </a>
         <a href="@Url.Action("LiveView", "Dashboard", new{data = Model.Model})"
-           class="menu-link btn btn-outline-danger">
+           class="menu-link btn btn-outline-danger bg-dark  mt-1">
             🔴 View Live Stream
-            </a>            
+        </a>
+        @* <a href="@Url.Action("LiveView", "Dashboard", new{data = "RAV4"})" *@
+        @*    class="menu-link btn btn-outline-danger"> *@
+        @*     📍 Locate My Car *@
+        @* </a> *@
+                  
     </div>
 
     <hr>

@@ -5,9 +5,26 @@
 <h2>⚠️ Report an Issue</h2>
 <p>Describe the issue you are facing.</p>
 
-<form>
-    <label for="issue">Issue Details:</label><br>
-    <textarea id="issue" name="issue" rows="4" cols="50"></textarea><br><br>
+<div id="reportForm">
+    <form onsubmit="submitReport(event)">
+        <label for="issue">Issue Details:</label><br>
+        <textarea id="issue" name="issue" rows="4" cols="50"></textarea><br><br>
 
-    <button type="submit">Submit Report</button>
-</form>
+        <button class="btn btn-success  mt-1" type="submit">Submit Report</button>
+        
+    </form>
+</div>
+
+<div id="confirmationMessage" style="display:none;" class="p-4 bg-success text-white rounded">
+    <h4>✅ Report Sent for Review</h4>
+    <p>Your issue has been submitted successfully. Thank you!</p>
+</div>
+
+<script>
+    function submitReport(e) {
+        e.preventDefault(); 
+
+        document.getElementById('reportForm').style.display = 'none';
+        document.getElementById('confirmationMessage').style.display = 'block';
+    }
+</script>
