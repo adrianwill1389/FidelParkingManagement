@@ -40,8 +40,6 @@
     <h2 >🚗 My Car</h2>
     <br />
 
-   
-
     <div class="scale-box bg-secondary p-1 mb-2 rounded-3 align-self-center" style="width: 82%">
         <div class="text-center fs-1 fw-bold text-warning"><span id="elapsedTimer">00:00:00</span></div>
     </div>
@@ -68,8 +66,8 @@
                 <tr><td><strong>Vehicle Model:</strong></td><td>@Model.Model</td></tr>
                 <tr><td><strong>Vehicle Color:</strong></td><td>@Model.Color</td></tr>
                 <tr><td><strong>Entry Date:</strong></td><td>@Model.EntryDate.ToString("dd/MM/yyyy")</td></tr>
-                <tr><td><strong>Exit Time:</strong></td><td>@Model.EntryTime.ToString("HH:mm:ss")</td></tr>
-                <tr><td><strong>Elapsed Time:</strong></td><td>2h:34m:368</td></tr>
+                <tr><td><strong>Entry Time:</strong></td><td>@Model.EntryTime.ToString("HH:mm:ss")</td></tr>
+                
             </table>
             <br>
             
@@ -84,14 +82,13 @@
            class="menu-link btn btn-outline-danger">
             📍 Locate My Car
         </a>
-        <a href="@Url.Action("LiveView", "Dashboard", new{data = "RAV4"})"
+        <a href="@Url.Action("LiveView", "Dashboard", new{data = Model.Model})"
            class="menu-link btn btn-outline-danger">
             🔴 View Live Stream
             </a>            
     </div>
 
     <hr>
-
 
 }
 else{

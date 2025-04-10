@@ -30,18 +30,28 @@ public class DashboardController : Controller
         var userName = TempData["username"];
         if (userName != null)
         {
-            // Keep the TempData for the next request
-            TempData.Keep("username"); 
-            //Get vehicle data for the specific user license plate
-            var vehicle = await _context.VehiclesDetecteds
-                .Include(v => v.Media)
-                .Include(v => v.Payment)
-            .FirstOrDefaultAsync(v => v.LicensePlateNumber.Equals(userName));
+            try
+            {
+                // Keep the TempData for the next request
+                TempData.Keep("username");
+                //Get vehicle data for the specific user license plate
+                var vehicle = await _context.VehiclesDetecteds
+                    .Include(v => v.Media)
+                    .Include(v => v.Payment)
+                .FirstOrDefaultAsync(v => v.LicensePlateNumber.Equals(userName));
 
-            var img  = vehicle.Media!.Url;
-            return View(vehicle);
+                var img = vehicle.Media!.Url;
+                return View(vehicle);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching vehicle data: " + ex.Message);
+                return View("Error"); 
+                // Handle the error, maybe redirect to an error page or show a message
+            }
+
+           
         }
-        
         return NotFound();
     }
 

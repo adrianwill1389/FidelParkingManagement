@@ -41,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav ms-auto">
 
-                        <li class="nav-item"><a class="nav-link " href="Account/Login">👤 Logout</a></li>
+                        <li class="nav-item"><a class="nav-link " href="@Url.Action("Login", "Account")">👤 Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="#"></a></li>
                     </ul>
                 </div>
@@ -53,9 +53,9 @@
             @{
                     try
                     {
-                        if (TempData["username"]!.Equals("8854TW"))
+                    if (TempData["success"]!.Equals("success"))
                         {
-                        TempData.Keep("username");
+                        TempData.Keep("success");
                         
                         <div class="sidebar">
                            

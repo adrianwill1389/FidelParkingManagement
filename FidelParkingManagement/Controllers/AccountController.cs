@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using FidelParkingManagement.Models;
 using System;
+using System.Drawing;
+using System.Text;
+using System.Security.Cryptography;
 
 public class AccountController : Controller
 {
@@ -20,6 +23,7 @@ public class AccountController : Controller
         try
         {
             TempData.Remove("username");
+            TempData.Remove("success");
             Console.WriteLine("TempData User Deleted");
         }
         catch (Exception ex)
@@ -38,20 +42,63 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> LoginAsync(string username, string password)
     {
-        
-        if (username == "8854TW" && password == "1234") //HardCode for now until database added
-        {
-            TempData["username"] = username;
 
-            //if user logs in successfully, load the vehicle data for the user
-            //var vehicle = await _context.VehiclesDetecteds
-          
-            //    .FirstOrDefaultAsync(v => v.LicensePlateNumber == username);
-             
-            //TempData["Vehicle"] = JsonSerializer.Serialize(vehicle);
-            return RedirectToAction("Index", "Dashboard"); 
+        //if (username == "8918 OL" && password == "1234") //HardCode for now until database added
+        //{
+        //    TempData["username"] = username;
+
+        //    //if user logs in successfully, load the vehicle data for the user
+        //    //var vehicle = await _context.VehiclesDetecteds
+
+        //    //    .FirstOrDefaultAsync(v => v.LicensePlateNumber == username);
+
+        //    //TempData["Vehicle"] = JsonSerializer.Serialize(vehicle);
+        //    return RedirectToAction("Index", "Dashboard"); 
+        //}
+        try
+        {
+            SHA256 sha = SHA256.Create();
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Invalid Username or Password";
+                return View();
+                
+            }
+            
+            var userName = username.Trim();
+
+            //Convert the password to a byte array and hash it
+            byte[] bytes = Encoding.UTF8.GetBytes(password);
+            byte[] hash = sha.ComputeHash(bytes);
+            password = Convert.ToBase64String(hash);
+
+
+            var user = _context.UserAccounts.Where(u => u.UserName == userName && u.Password == password).FirstOrDefault();
+           
+            if (user != null )
+            {
+                
+                if (user.Role!.Trim() == "admin")
+                {
+                    ViewBag.Error = "You do not have access to this system";
+                    return View();
+                }
+                TempData["username"] = userName;
+                TempData["success"] = "success";
+                return RedirectToAction("Index", "Dashboard");
+
+            }
+            else
+            {
+                ViewBag.Error = "Invalid Username or Password";
+            }
+
         }
-        ViewBag.Error = "Invalid Username or Password";
+        catch (Exception ex)
+        {
+            ViewBag.Error = "Invalid Username or Password: "+ex.Message;
+        }
+       
         return View();
     }
 
