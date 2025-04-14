@@ -1,4 +1,4 @@
-﻿using Azure;
+﻿
 using FidelParkingManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Text.Json;
 
 public class DashboardController : Controller
 {
-    private readonly FidelParkingDbContext _context; 
+    private readonly FidelParkingDbContext _context;
 
     public DashboardController(FidelParkingDbContext context)
     {
@@ -16,15 +16,8 @@ public class DashboardController : Controller
     }
     public IActionResult Index()
     {
-        // Sample data - replace with actual data from database
-        var dashboardData = new DashboardViewModel
-        {
 
-            WalletAmount = 12500.00M, // Fetch from DB
-            MembershipStatus = "Silver" // Fetch from DB
-        };
-
-        return View(); // ✅ This loads Index.cshtml as a full page
+        return View();
     }
 
 
@@ -49,24 +42,23 @@ public class DashboardController : Controller
             catch (Exception ex)
             {
                 Console.WriteLine("Error fetching vehicle data: " + ex.Message);
-                return View("Error"); 
-                // Handle the error, maybe redirect to an error page or show a message
+                return View("Error");
             }
 
-           
         }
-         return NotFound();
+        return NotFound();
     }
 
     public IActionResult LiveView(string data)
     {
+        //create the live feed object with the url
         var liveFeed = new LiveFeed
         {
             url = "https://jarentals.net/wp-content/carLiveVids/" + data + ".mp4",
             autoPlay = true,
             loop = true
         };
-        return View(liveFeed); 
+        return View(liveFeed);
     }
 
     public async Task<IActionResult> PayOnline()
@@ -96,7 +88,7 @@ public class DashboardController : Controller
             }
             else
             {
-               // TempData["Amount"] = 0;
+                // TempData["Amount"] = 0;
                 TempData["IsPaid"] = true;
             }
         }
@@ -140,33 +132,79 @@ public class DashboardController : Controller
 
         return RedirectToAction("PayOnline", "Dashboard");
     }
-    
+
 
 
     public IActionResult FindASpot()
     {
-        return View(); // ✅ Load the full FindASpot.cshtml page
+        return View();
     }
 
-    public IActionResult ReserveParking()
+    public async Task<IActionResult> ReserveParkingAsync()
     {
-        return View(); // ✅ Load the full ReserveParking.cshtml page
+        var reservations = await _context.VehiclesDetecteds
+    .Where(v => v.LicensePlateNumber.Equals(TempData["username"]) && v.Operation.Equals("Reservation"))
+    .ToListAsync();
+
+        TempData.Keep("username");
+        return View(reservations);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Reserve(DateOnly _entryDate, TimeOnly _entryTime)
+    {
+        var plate = TempData["username"]?.ToString();
+        TempData.Keep("username");
+
+        var vehicle = await _context.VehiclesDetecteds
+            .FirstOrDefaultAsync(v => v.LicensePlateNumber == plate);
+
+        if (vehicle != null)
+        {
+            var myReservation = new VehiclesDetected
+            {
+                Operation = "Reservation",
+                LicensePlateNumber = vehicle.LicensePlateNumber,
+                Make = vehicle.Make,
+                Model = vehicle.Model,
+                Color = vehicle.Color,
+                EntryDate = _entryDate,
+                EntryTime = _entryTime
+            };
+
+
+            _context.Add(myReservation);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("ReserveParking");
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int ticketnumber)
+    {
+        var ticket = TempData["ticketNumber"];
+        var reservation = await _context.VehiclesDetecteds.FindAsync(ticket);
+        if (reservation != null)
+        {
+            _context.VehiclesDetecteds.Remove(reservation);
+            await _context.SaveChangesAsync();
+        }
+
+
+        return RedirectToAction("ReserveParking");
     }
 
     public IActionResult ReportIssue()
     {
-        return View(); // ✅ Load the full ReportIssue.cshtml page
+        return View();
     }
 
     public IActionResult MyWallet()
     {
-        var walletData = new DashboardViewModel
-        {
-            WalletAmount = 9000.00M,
-            MembershipStatus = "Silver"
-        };
-
-        return View(walletData); // ✅ Correctly loads MyWallet.cshtml inside `_Layout.cshtml`
+       
+        return View();
     }
 
     private void calculatePrice(VehiclesDetected vehiclesExiting, double minutes, bool shouldSaveDB)
@@ -183,7 +221,7 @@ public class DashboardController : Controller
                 cost += (roundedHours - 10) * 100;
             }
 
-            TempData["Amount"] = (int) cost;
+            TempData["Amount"] = (int)cost;
             if (shouldSaveDB)
             {
                 //save the payment details to the database
@@ -216,10 +254,3 @@ public class DashboardController : Controller
 
 }
 
-
-// ✅ Make sure DashboardViewModel only contains needed properties
-public class DashboardViewModel
-{
-    public decimal WalletAmount { get; set; }
-    public string MembershipStatus { get; set; }
-}

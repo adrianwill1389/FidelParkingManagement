@@ -1,16 +1,56 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model List<VehiclesDetected>
 
 <h2>📅 Reserve Parking</h2>
 <p>Select your preferred parking date and time.</p>
 
-<form>
+<form method="post" asp-action="Reserve">
     <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required><br><br>
+    <input type="date" id="date" name="_entryDate" required><br><br>
 
     <label for="time">Time:</label>
-    <input type="time" id="time" name="time" required><br><br>
+    <input type="time" id="time" name="_entryTime" required><br><br>
 
-    <button type="submit">Reserve Now</button>
+    <button type="submit" class="btn btn-primary">Reserve Now</button>
 </form>
+<br /><br />
+
+@if (Model == null || !Model.Any())
+{
+    <p>No reservations found for this license plate.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>License Plate</th>
+                <th>Reserved Date</th>
+                <th>Reserved Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+             @foreach (var r in Model) 
+            { 
+                <tr>
+                <td>@r.Make</td>
+                <td>@r.Model</td>
+                <td>@r.LicensePlateNumber</td>
+                <td>@r.EntryDate</td>
+                <td>@r.EntryTime</td>
+                <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@r.TicketNumber" style="display:inline;">
+                            @{
+                                TempData["ticketNumber"] = r.TicketNumber;
+                            }
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            
+                        </form>
+                </td>
+                </tr>
+             } 
+        </tbody>
+    </table>
+}

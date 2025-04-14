@@ -5,12 +5,29 @@
 <h2>🅿️ Please Select Your Spot</h2>
 <p>Click on an available spot to reserve it.</p>
 
-<img src="~/images/parking-map.jpg" alt="Parking Spot Map" width="600px" />
-
-<!-- Example of parking spots using buttons -->
-<div>
-    <button>Spot 1</button>
-    <button>Spot 2</button>
-    <button>Spot 3</button>
-    <button>Spot 4</button>
+<div id="map1" class="map-image">
+    <img src="~/images/location1.jpg" alt="Parking Lot A" width="600px" />
 </div>
+
+<div id="map2" class="map-image" style="display: none;">
+    <img src="~/images/location2.jpg" alt="Parking Lot B" width="600px" />
+</div>
+
+<div id="map3" class="map-image" style="display: none;">
+    <img src="~/images/location3.jpg" alt="Parking Lot C" width="600px" />
+</div>
+
+<div class="mb-3 mt-2">
+    <button onclick="showMap('map1')" class="btn btn-success">Lot A</button>
+    <button onclick="showMap('map2')" class="btn btn-success">Lot B</button>
+    <button onclick="showMap('map3')" class="btn btn-success">Lot C</button>
+</div>
+
+<script>
+    function showMap(mapId) {
+        const maps = document.querySelectorAll(".map-image");
+        maps.forEach(m => m.style.display = "none");
+
+        document.getElementById(mapId).style.display = "block";
+    }
+</script>

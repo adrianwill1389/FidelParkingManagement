@@ -2,7 +2,7 @@
   
     var amount = TempData["Amount"] != null ? Convert.ToDecimal(TempData["Amount"]) : 0;
     var isPaid = TempData["IsPaid"] != null && (bool)TempData["IsPaid"];
-    TempData.Keep(); // Keep both values across refresh/post
+    TempData.Keep(); 
 }
 
 <div>
